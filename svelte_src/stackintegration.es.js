@@ -60,6 +60,9 @@ function safe_not_equal(a, b) {
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
 }
+function append(target, node) {
+  target.appendChild(node);
+}
 function insert(target, node, anchor) {
   target.insertBefore(node, anchor || null);
 }
@@ -93,6 +96,14 @@ function attr(node, attribute, value) {
 }
 function children(element2) {
   return Array.from(element2.childNodes);
+}
+function set_data(text2, data) {
+  data = "" + data;
+  if (text2.wholeText !== data)
+    text2.data = data;
+}
+function set_input_value(input, value) {
+  input.value = value == null ? "" : value;
 }
 let current_component;
 function set_current_component(component) {
@@ -506,30 +517,22 @@ class Confetti extends SvelteComponent {
 }
 var App_svelte_svelte_type_style_lang = "";
 function create_fragment$1(ctx) {
-  let h10;
+  let h1;
   let t1;
-  let h11;
-  let t3;
   let confetti;
   let current;
   confetti = new Confetti({});
   return {
     c() {
-      h10 = element("h1");
-      h10.textContent = "Hi from svelte";
+      h1 = element("h1");
+      h1.textContent = "Hi from svelte";
       t1 = space();
-      h11 = element("h1");
-      h11.textContent = "Hi from svelte";
-      t3 = space();
       create_component(confetti.$$.fragment);
-      attr(h10, "class", "svelte-9noqbk");
-      attr(h11, "class", "svelte-9noqbk");
+      attr(h1, "class", "svelte-9noqbk");
     },
     m(target, anchor) {
-      insert(target, h10, anchor);
+      insert(target, h1, anchor);
       insert(target, t1, anchor);
-      insert(target, h11, anchor);
-      insert(target, t3, anchor);
       mount_component(confetti, target, anchor);
       current = true;
     },
@@ -546,13 +549,9 @@ function create_fragment$1(ctx) {
     },
     d(detaching) {
       if (detaching)
-        detach(h10);
+        detach(h1);
       if (detaching)
         detach(t1);
-      if (detaching)
-        detach(h11);
-      if (detaching)
-        detach(t3);
       destroy_component(confetti, detaching);
     }
   };
@@ -565,42 +564,128 @@ class App extends SvelteComponent {
 }
 function create_fragment(ctx) {
   let form;
+  let input0;
+  let t0;
+  let input1;
+  let t1;
+  let input2;
+  let t2;
+  let input3;
+  let t3;
+  let p2;
+  let t4;
+  let t5_value = ctx[1].name + "";
+  let t5;
   let mounted;
   let dispose;
   return {
     c() {
       form = element("form");
-      form.innerHTML = `<input type="text" name="fullname" placeholder="Full name"/> 
-    <input type="text" name="dob" placeholder="DOB"/> 
-    <input type="text" name="emailID" placeholder="EmaiID"/> 
-    <input type="submit" value="submit"/>`;
+      input0 = element("input");
+      t0 = space();
+      input1 = element("input");
+      t1 = space();
+      input2 = element("input");
+      t2 = space();
+      input3 = element("input");
+      t3 = space();
+      p2 = element("p");
+      t4 = text("Name: ");
+      t5 = text(t5_value);
+      attr(input0, "id", "form-name");
+      attr(input0, "type", "text");
+      attr(input0, "name", "fullname");
+      attr(input0, "placeholder", "Full name");
+      attr(input1, "id", "form-dob");
+      attr(input1, "type", "text");
+      attr(input1, "name", "dob");
+      attr(input1, "placeholder", "DOB");
+      attr(input2, "id", "form-email");
+      attr(input2, "type", "text");
+      attr(input2, "name", "emailID");
+      attr(input2, "placeholder", "EmaiID");
+      attr(input3, "id", "form-submit");
+      attr(input3, "type", "submit");
+      input3.value = "submit";
       attr(form, "id", "testform");
     },
     m(target, anchor) {
       insert(target, form, anchor);
+      append(form, input0);
+      set_input_value(input0, ctx[1].name);
+      append(form, t0);
+      append(form, input1);
+      set_input_value(input1, ctx[1].dob);
+      append(form, t1);
+      append(form, input2);
+      set_input_value(input2, ctx[1].email);
+      append(form, t2);
+      append(form, input3);
+      insert(target, t3, anchor);
+      insert(target, p2, anchor);
+      append(p2, t4);
+      append(p2, t5);
       if (!mounted) {
-        dispose = listen(form, "submit", prevent_default(ctx[0]));
+        dispose = [
+          listen(input0, "input", ctx[2]),
+          listen(input1, "input", ctx[3]),
+          listen(input2, "input", ctx[4]),
+          listen(form, "submit", prevent_default(ctx[0]))
+        ];
         mounted = true;
       }
     },
-    p: noop,
+    p(ctx2, [dirty]) {
+      if (dirty & 2 && input0.value !== ctx2[1].name) {
+        set_input_value(input0, ctx2[1].name);
+      }
+      if (dirty & 2 && input1.value !== ctx2[1].dob) {
+        set_input_value(input1, ctx2[1].dob);
+      }
+      if (dirty & 2 && input2.value !== ctx2[1].email) {
+        set_input_value(input2, ctx2[1].email);
+      }
+      if (dirty & 2 && t5_value !== (t5_value = ctx2[1].name + ""))
+        set_data(t5, t5_value);
+    },
     i: noop,
     o: noop,
     d(detaching) {
       if (detaching)
         detach(form);
+      if (detaching)
+        detach(t3);
+      if (detaching)
+        detach(p2);
       mounted = false;
-      dispose();
+      run_all(dispose);
     }
   };
 }
 function instance($$self, $$props, $$invalidate) {
-  const handleSubmit = (e) => {
-    const formData = new FormData(e.target);
-    const formProps = Object.fromEntries(formData);
-    console.log(formProps);
+  let formObj = { name: "", email: "", dob: "" };
+  const handleSubmit = () => {
+    console.log(formObj);
   };
-  return [handleSubmit];
+  function input0_input_handler() {
+    formObj.name = this.value;
+    $$invalidate(1, formObj);
+  }
+  function input1_input_handler() {
+    formObj.dob = this.value;
+    $$invalidate(1, formObj);
+  }
+  function input2_input_handler() {
+    formObj.email = this.value;
+    $$invalidate(1, formObj);
+  }
+  return [
+    handleSubmit,
+    formObj,
+    input0_input_handler,
+    input1_input_handler,
+    input2_input_handler
+  ];
 }
 class Form extends SvelteComponent {
   constructor(options) {

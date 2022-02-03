@@ -1,14 +1,37 @@
 <script>
-    export const handleSubmit = (e) => {
-        const formData = new FormData(e.target);
-        const formProps = Object.fromEntries(formData);
-        console.log(formProps);
+    let formObj = {
+        name: "",
+        email: "",
+        dob: "",
+    };
+    export const handleSubmit = () => {
+        console.log(formObj);
     };
 </script>
 
 <form id="testform" on:submit|preventDefault={handleSubmit}>
-    <input type="text" name="fullname" placeholder="Full name" />
-    <input type="text" name="dob" placeholder="DOB" />
-    <input type="text" name="emailID" placeholder="EmaiID" />
-    <input type="submit" value="submit" />
+    <input
+        id="form-name"
+        type="text"
+        name="fullname"
+        placeholder="Full name"
+        bind:value={formObj.name}
+    />
+    <input
+        id="form-dob"
+        type="text"
+        name="dob"
+        placeholder="DOB"
+        bind:value={formObj.dob}
+    />
+    <input
+        id="form-email"
+        type="text"
+        name="emailID"
+        placeholder="EmaiID"
+        bind:value={formObj.email}
+    />
+    <input id="form-submit" type="submit" value="submit" />
 </form>
+
+<p>Name: {formObj.name}</p>
