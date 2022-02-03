@@ -11,7 +11,7 @@ export default defineConfig({
       name: `[name].ext`
     },
     manifest: true,
-    outDir: "eleventy/svelte_src",
+    outDir: "svelte_src",
     emptyOutDir: true,
   }
 })

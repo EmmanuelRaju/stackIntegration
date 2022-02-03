@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script type="module" crossorigin src="{{prefix}}/svelte_src/stackintegration.umd.js"></script>
+    <link rel="stylesheet" href="{{prefix}}/svelte_src/style.css">
+    
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {% include "partials/header.html" %}
+    <main>
+      {% block content %}
+        {{ content | safe }}
+      {% endblock %}
+    </main>
+    <div id="app"></div>
+    
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "routes": [{
+        "name": "home",
+        "url": "/" 
+    }, {
+        "name": "calculator",
+        "url": "/calculator/" 
+    }, {
+        "name": "reviews",
+        "url": "/reviews/" 
+    }]
+}

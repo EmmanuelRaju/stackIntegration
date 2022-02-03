@@ -1,0 +1,8 @@
+<div>
+    {{title}}
+    <ul>
+    {% for route in navigation.routes %}
+        <li><a class="text-base font-bold" href="{{ route.url }}">{{ route.name }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
